@@ -50,16 +50,17 @@ class CentralizedService {
     return AuthResponse.fromJson(jsonDecode(tokenAuth));
   }
 
-  AuthResponse? get user => getAuthResponse() as AuthResponse?;
+  Future<AuthResponse?> get user async => await getAuthResponse();
 
   Future<UserCentralized?> getUserCentralized() async {
-    if (user == null) return null;
-    final token = user!.accessToken;
+    final authResponse = await user;
+    if (authResponse == null) return null;
+    final token = authResponse.accessToken;
     if (token == null) return null;
     final parseToken = JwtDecoder.decode(token);
     return UserCentralized.fromJson(parseToken);
   }
 
-  UserCentralized? get userCentralized =>
-      getUserCentralized() as UserCentralized?;
+  Future<UserCentralized?> get userCentralized async =>
+      await getUserCentralized();
 }

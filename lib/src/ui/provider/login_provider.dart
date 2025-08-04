@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ag/ag.dart';
 import 'package:di/di.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,7 +43,7 @@ class LoginProvider
 
               await Dependencies()
                   .getIt<CentralizedAuthRepository>()
-                  .setToken(data.toJson().toString());
+                  .setToken(jsonEncode(data));
 
               state = Fetched(authResponse);
 
