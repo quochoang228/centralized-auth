@@ -1,6 +1,7 @@
 import 'package:ag/ag.dart';
 import 'package:di/di.dart';
 import '../data/api/centralized_auth_api.dart';
+import '../data/api/curl_interceptor.dart';
 import '../data/local/centralized_local.dart';
 import '../data/repo/centralized_repo.dart';
 import '../services/centralized_service.dart';
@@ -10,12 +11,18 @@ class AuthCentralizedDependency implements BaseDependencies {
   void apiDependency() {
     final dependencies = Dependencies();
 
+    var dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://keycloak-uat.congtrinhviettel.com.vn/realms',
+      ),
+    )..interceptors.addAll([
+        // LoggingInterceptor(),
+        CurlLoggerDioInterceptor(),
+      ]);
+
     dependencies.registerFactory<CentralizedAuthApi>(
       () => CentralizedAuthApiImpl(
-        dio: Dio(
-          BaseOptions(
-              baseUrl: 'https://keycloak-uat.congtrinhviettel.com.vn/realms'),
-        ),
+        dio: dio,
       ),
     );
 

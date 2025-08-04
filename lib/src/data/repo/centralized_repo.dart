@@ -1,11 +1,12 @@
-import 'package:ag/ag.dart';
 
 import '../../entities/auth_response.dart';
+import '../api/base_repository.dart';
+import '../api/base_result.dart';
 import '../api/centralized_auth_api.dart';
 import '../local/centralized_local.dart';
 
 abstract class CentralizedAuthRepository {
-  Future<BaseResult<AuthResponse>> login({
+  Future<BaseResultCentralized<AuthResponse>> login({
     required Map<String, dynamic> request,
   });
 
@@ -18,7 +19,7 @@ abstract class CentralizedAuthRepository {
   Future<bool> isLoggedIn();
 }
 
-class CentralizedAuthRepositoryImpl extends BaseRepository implements CentralizedAuthRepository {
+class CentralizedAuthRepositoryImpl extends CentralizedBaseRepository implements CentralizedAuthRepository {
   CentralizedAuthRepositoryImpl({
     required CentralizedAuthApi centralizedAuthApi,
     required CentralizedAuthLocal centralizedAuthLocal,
@@ -29,7 +30,7 @@ class CentralizedAuthRepositoryImpl extends BaseRepository implements Centralize
   final CentralizedAuthLocal _centralizedAuthLocal;
 
   @override
-  Future<BaseResult<AuthResponse>> login({
+  Future<BaseResultCentralized<AuthResponse>> login({
     required Map<String, dynamic> request,
   }) async {
     try {

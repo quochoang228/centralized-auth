@@ -25,8 +25,8 @@ class LoginCentralizedPage extends StatefulHookConsumerWidget {
 class _LoginCentralizedPageState extends ConsumerState<LoginCentralizedPage> {
   @override
   Widget build(BuildContext context) {
-    var userController = useTextEditingController();
-    var passWorkController = useTextEditingController();
+    var userController = useTextEditingController(text: '249335');
+    var passWorkController = useTextEditingController(text: 'QazEdc@123');
 
     var isUserControllerNotEmpty = useListenableSelector(
       userController,
@@ -56,6 +56,12 @@ class _LoginCentralizedPageState extends ConsumerState<LoginCentralizedPage> {
         noData: (_) => const SizedBox(),
         failed: (err) {
           LoadingDialog.dismiss(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(err.err.message ?? 'Đã xảy ra lỗi!'),
+              backgroundColor: Colors.red,
+            ),
+          );
           // BaseNormalToast.showError(
           //   context: context,
           //   text: (err as ErrorResponse).message ?? '',

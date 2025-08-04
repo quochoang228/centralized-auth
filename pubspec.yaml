@@ -17,6 +17,10 @@ dependencies:
   flutter_hooks: ^0.20.5
   
   # dio: ^5.8.0+1
+  logs:
+    git:
+      url: https://github.com/quochoang228/logs.git
+      ref: main
   ag:
      git:
        url: https://github.com/quochoang228/ag.git
