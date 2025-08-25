@@ -2,6 +2,7 @@ import 'package:ds/ds.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../entities/auth_response.dart';
@@ -83,11 +84,19 @@ class _LoginCentralizedPageState extends ConsumerState<LoginCentralizedPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Đăng nhập tập trung',
-                      style: DSTextStyle.titleMedium,
-                      textAlign: TextAlign.center,
+                    SvgPicture.asset(
+                      'assets/icons/logo.svg',
+                      width: 100,
+                      height: 100,
+                      colorFilter:
+                          ColorFilter.mode(DSCoreColors.red, BlendMode.srcIn),
+                      package: 'centralized_auth',
                     ),
+                    // Text(
+                    //   'Đăng nhập tập trung',
+                    //   style: DSTextStyleFS.fsHeadlineLarge.copyWith(),
+                    //   textAlign: TextAlign.center,
+                    // ),
                     const SizedBox(height: DSSpacing.spacing4),
                     DSTextField(
                       controller: userController,
@@ -160,9 +169,9 @@ class _LoginCentralizedPageState extends ConsumerState<LoginCentralizedPage> {
                   ],
                 ),
               ),
-          
+
               // const Spacer(),
-          
+
               Center(
                 child: RichText(
                   text: TextSpan(
